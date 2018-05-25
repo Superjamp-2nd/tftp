@@ -1,0 +1,29 @@
+default menu.c32
+prompt 0
+timeout 150
+ONTIMEOUT start
+
+MENU TITLE PXE Menu
+
+label proxmox-install
+	menu default
+        menu label Install Proxmox
+        linux proxmox/linux26
+        append vga=791 video=vesafb:ywrap,mtrr ramdisk_size=16777216 rw quiet splash=silent
+        initrd proxmox/initrd.iso.img
+
+label proxmox-debug-install
+        menu label Install Proxmox (Debug Mode)
+        linux proxmox/linux26
+        append vga=791 video=vesafb:ywrap,mtrr ramdisk_size=16777216 rw quiet splash=verbose proxdebug
+        initrd proxmox/initrd.iso.img
+label start
+        menu default
+        menu label Start from hd0
+        kernel chain.c32
+        append hd0
+label start2
+        menu label Start from hd1
+        kernel chain.c32
+        append hd1
+
